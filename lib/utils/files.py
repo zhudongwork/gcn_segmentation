@@ -2,7 +2,7 @@ import os
 import ftplib
 import os
 
-def upload_training(prefix,EPOCHS,lr,dataset_name, client="ftpclient",password="dextro",fig_dir='./fig',PORT = 2121, HOST = "213.206.185.111",h5format=False):
+def upload_training(prefix,EPOCHS,lr,dataset_name, client="arielin1",password="dextro",fig_dir='./fig',PORT = 21, HOST = "ftp.drivehq.com",h5format=False):
     def upload(ftp, file):
         if not os.path.exists(file):
             print("File '", file, "' doesn't exist")
