@@ -213,7 +213,7 @@ class Evaluator(object):
             images_lung.append(lung.squeeze())
         result = {}
         result['volume'] = np.stack(images_volume).astype('float32')
-        result['lung'] = np.stack(images_volume).astype('float32')
+        result['lung'] = np.stack(images_lung).astype('float32')
         return result
         # # plot input image
         # # TODO: image will change its shape I need a transformer class
