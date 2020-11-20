@@ -204,7 +204,7 @@ class Evaluator(object):
                 image = image.x.cpu().detach().numpy().reshape((dimension, dimension))
                 prediction = torch.sigmoid(prediction.reshape((dimension, dimension)))
                 pred_mask = pred_mask.reshape((dimension, dimension))
-            lung = image.cpu().numpy()
+            lung = image
             TP = pred_mask.cpu().numpy()*mask
             FP = 1*((pred_mask.cpu().numpy()-mask) > 0)
             FN = 1*((mask-pred_mask.cpu().numpy()) > 0)
