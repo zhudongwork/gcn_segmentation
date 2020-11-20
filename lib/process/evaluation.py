@@ -177,8 +177,9 @@ class Evaluator(object):
 
     def plot_volumen(self,model, index=0, fig=None, figsize=(10,10), N=190, overlap=True):
 
+        images_volume = []
+        images_lung = []
 
-        images = []
         for ii in range(index,N):
             sample = self.dataset[ii]
             if not isinstance(sample, tuple):
@@ -203,12 +204,16 @@ class Evaluator(object):
                 image = image.x.cpu().detach().numpy().reshape((dimension, dimension))
                 prediction = torch.sigmoid(prediction.reshape((dimension, dimension)))
                 pred_mask = pred_mask.reshape((dimension, dimension))
+            lung = image.cpu().numpy()
             TP = pred_mask.cpu().numpy()*mask
             FP = 1*((pred_mask.cpu().numpy()-mask) > 0)
             FN = 1*((mask-pred_mask.cpu().numpy()) > 0)
             mix = TP+2*FP+3*FN
-            images.append(mix.squeeze())
-        result = np.stack(images).astype('float32')
+            images_volume.append(mix.squeeze())
+            images_lung.append(lung.squeeze())
+        result = {}
+        result['volume'] = np.stack(images_volume).astype('float32')
+        result['lung'] = np.stack(images_volume).astype('float32')
         return result
         # # plot input image
         # # TODO: image will change its shape I need a transformer class
